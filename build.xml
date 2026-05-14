@@ -1325,6 +1325,13 @@ The text for an official release would continue like ...
             depends="init, clean-test, javatest-built, launchertest-built, regrtest-built, modjytest-built"
             description="run all the tests against an existing built dist without rebuilding"/>
 
+    <target name="test-ci" depends="clean-test, javatest, launchertest, regrtest-ci, modjytest"
+        description="run all the tests in ci"/>
+
+    <target name="test-ci-built"
+            depends="init, clean-test, javatest-built, launchertest-built, regrtest-ci-built, modjytest-built"
+            description="run all the ci tests against an existing built dist without rebuilding"/>
+
     <target name="singlejavatest" depends="compile-test, expose"
         description="run a single JUnit test (specify with -Dtest=classname)">
         <junit haltonfailure="true" fork="true">
@@ -1597,6 +1604,10 @@ The text for an official release would continue like ...
             depends="developer-build, regrtest-unix-ci, regrtest-windows-ci"
             description="run Python tests expected to work on Jython for CI"/>
 
+    <target name="regrtest-ci-built"
+            depends="init, regrtest-unix-ci, regrtest-windows-ci"
+            description="run Python tests expected to work on Jython for CI"/>
+
     <target name="regrtest-unix-ci" if="os.family.unix">
         <mkdir dir="${junit.reports}"/>
         <exec executable="${dist.dir}/bin/jython" failonerror="true">
@@ -1614,6 +1625,8 @@ The text for an official release would continue like ...
             <arg value="test_py_compile"/> <!-- test_relative_path (on osx) -->
             <arg value="test_select_new"/>
             <arg value="test_smtpnet"/>
+            <arg value="test_socket"/> <!-- flaky -->
+            <arg value="test_socket_jy"/> <!-- flaky -->
         </exec>
     </target>
 

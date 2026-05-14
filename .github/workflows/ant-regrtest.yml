@@ -1,6 +1,6 @@
-# Run ant regrtest on Jython 2.7 (GitHub action)
+# Run ant test on Jython 2.7 (GitHub action)
 
-name: ant regrtest 2.7
+name: ant test 2.7
 
 on:
   push:
@@ -12,49 +12,54 @@ permissions:
   contents: read
 
 jobs:
+  # build once
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up JDK 11
+        uses: actions/setup-java@v5
+        with:
+          java-version: '11'
+          distribution: 'temurin'
 
-  ant-regrtest-ubuntu-jdk8:
+      - name: Full Build with Ant
+        run: ant
 
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
+      # preserve the built files for later
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-output-${{ matrix.os }}
+          path: dist/
+
+  # run the ci tests
+  test:
+    needs: build # wait for build to finish
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        java-version: [11, 17, 21, 25]
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - run: echo "Branch ${{ github.ref }} of repository ${{ github.repository }}."
+      - uses: actions/checkout@v6
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v5
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'temurin'
 
-    # Some tests require exactly-expected line endings
-    - run: git config --global core.autocrlf input
+      # fetch the previously built files
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: build-output-${{ matrix.os }}
+          path: dist/
 
-    - uses: actions/checkout@v4
-
-    - name: Set up JDK 8
-      uses: actions/setup-java@v4
-      with:
-        java-version: '8'
-        distribution: 'temurin'
-
-    - name: Regression test with Ant
-      run: ant -noinput -buildfile build.xml regrtest-ci
-
-
-  ant-regrtest-windows-jdk11:
-
-    runs-on: windows-latest
-    timeout-minutes: 60
-
-    steps:
-    - run: echo "Branch ${{ github.ref }} of repository ${{ github.repository }}."
-
-    # Some tests require exactly-expected line endings
-    - run: git config --global core.autocrlf input
-
-    - uses: actions/checkout@v4
-
-    - name: Set up JDK 11
-      uses: actions/setup-java@v4
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-
-    - name: Regression test with Ant
-      run: ant -noinput -buildfile build.xml regrtest-ci
-
+      - name: Test with Ant
+        run: ant test-ci
