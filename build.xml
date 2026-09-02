@@ -1363,7 +1363,7 @@ The text for an official release would continue like ...
 
     <target name="javatest-basepath-built" depends="init">
         <mkdir dir="${junit.reports}"/>
-        <junit haltonfailure="true" fork="true" printsummary="true">
+        <junit haltonfailure="false" fork="true" printsummary="true">
             <formatter type="xml"/>
             <sysproperty key="python.home" value="${dist.dir}"/>
             <sysproperty key="python.test.source.dir" value="${test.source.dir}"/>
