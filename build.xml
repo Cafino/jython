@@ -992,7 +992,7 @@ The text for an official release would continue like ...
             <nameunion>
                 <fileset dir="${exposed.dir}"/>
                 <fileset dir="${compile.dir}"
-                    excludes="org/python/expose/generate/**,org/python/version.properties"/>
+                    excludes="org/python/version.properties"/>
             </nameunion>
             <manifest>
                 <attribute name="Main-Class" value="org.python.util.jython" />
