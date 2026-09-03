@@ -288,6 +288,10 @@ informix.jar = ../support/jdbc-4.10.12.jar
             <pathelement location="${compile.dir}" />
             <pathelement location="${test.compile.dir}" />
             <pathelement location="${cpptasks.jar.dir}" />
+            <filelist dir="${dist.dir}">
+                <file name="${jython.test.jar}" />
+                <file name="${jython.dev.jar}" />
+            </filelist>
         </path>
     </target>
 
