@@ -167,21 +167,15 @@ public class PySystemState_registry_Test extends TestCase {
     private void findRoot() throws Exception {
         Class<? extends PySystemState_registry_Test> thisClass = getClass();
         String classFileName = "/".concat(thisClass.getName().replace('.', '/')).concat(".class");
-        System.err.println("classFileName: "+classFileName);
         URL url = thisClass.getResource(classFileName);
         assertNotNull(url);
-        System.err.println("url: "+url);
         String path = URLDecoder.decode(url.getPath(), "UTF-8");
-        System.err.println("path: "+path);
         if  (path.contains("jython-test.jar!")) {
             path = path.substring(0, path.indexOf("jython-test.jar!"));
-            System.err.println("path: "+path);
             if (path.startsWith("file:")) {
                 path = path.substring("file:".length());
-                System.err.println("path: "+path);
             }
             _root = new File(path);
-            System.err.println("_root: "+_root);
         } else {
             assertTrue(path.endsWith(classFileName));
             String classesDirName = path.substring(0, path.length() - classFileName.length());
