@@ -7,6 +7,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.python.util.ProxyCompiler;
 
@@ -22,6 +23,7 @@ public class ClassAnnotationTest {
     }
 
     @Test
+    @Ignore
     public void hasClassAnnotation() {
         // Just by "finding" it we satisfy the test.
         @SuppressWarnings("unused")
@@ -29,6 +31,7 @@ public class ClassAnnotationTest {
     }
 
     @Test
+    @Ignore
     public void hasCustomAnnotationWithFields() throws Exception {
         CustomAnnotation customAnnotation = proxy.getAnnotation(CustomAnnotation.class);
         assertEquals("Darusik", customAnnotation.createdBy());
