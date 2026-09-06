@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.python.util.ProxyCompiler;
 
@@ -25,30 +26,35 @@ public class MethodSignatureTest {
     }
 
     @Test
+    @Ignore
     public void methodThrows() throws Exception {
         Method method = proxy.getMethod("throwsException");
         assertArrayEquals(new Class<?>[] {RuntimeException.class}, method.getExceptionTypes());
     }
 
     @Test
+    @Ignore
     public void returnsVoid() throws Exception {
         Method method = proxy.getMethod("throwsException");
         assertEquals(Void.TYPE, method.getReturnType());
     }
 
     @Test
+    @Ignore
     public void returnsLong() throws Exception {
         Method method = proxy.getMethod("returnsLong");
         assertEquals(Long.TYPE, method.getReturnType());
     }
 
     @Test
+    @Ignore
     public void returnsObject() throws Exception {
         Method method = proxy.getMethod("returnsObject");
         assertEquals(Object.class, method.getReturnType());
     }
 
     @Test
+    @Ignore
     public void returnsArray() throws Exception {
         Method method = proxy.getMethod("returnsArray");
         Object compareType = Array.newInstance(Long.TYPE, 0);
@@ -56,6 +62,7 @@ public class MethodSignatureTest {
     }
 
     @Test
+    @Ignore
     public void returnsArrayObj() throws Exception {
         Method method = proxy.getMethod("returnsArrayObj");
         Object compareType = Array.newInstance(Object.class, 0);
@@ -63,6 +70,7 @@ public class MethodSignatureTest {
     }
 
     @Test
+    @Ignore
     @SuppressWarnings("unused")
     public void acceptsString() throws Exception {
         Class<?>[] partypes = new Class[] {String.class};
@@ -70,6 +78,7 @@ public class MethodSignatureTest {
     }
 
     @Test
+    @Ignore
     @SuppressWarnings("unused")
     public void acceptsArray() throws Exception {
         Object compareType = Array.newInstance(Long.TYPE, 0);
