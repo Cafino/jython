@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.util.Properties;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.python.core.PySystemState;
 import org.python.core.RegistryKey;
