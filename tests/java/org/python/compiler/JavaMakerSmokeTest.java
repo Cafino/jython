@@ -10,7 +10,6 @@ import java.lang.reflect.Array;
 import java.util.Properties;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.python.core.PySystemState;
 import org.python.core.RegistryKey;
@@ -43,28 +42,24 @@ public class JavaMakerSmokeTest {
     }
 
     @Test
-    @Ignore
     public void constructors() throws Exception {
         proxyClass.getConstructor(Array.newInstance(Byte.TYPE, 0).getClass());
         proxyClass.getConstructor(Array.newInstance(Byte.TYPE, 0).getClass(), Integer.TYPE, Integer.TYPE);
     }
 
     @Test
-    @Ignore
     public void methods() throws Exception {
         proxyClass.getMethod("classDictInit", org.python.core.PyObject.class);
         proxyClass.getMethod("close");
     }
 
     @Test
-    @Ignore
     public void annotations() throws Exception {
         proxyClass.getAnnotation(org.python.compiler.APIVersion.class);
         proxyClass.getAnnotation(org.python.compiler.MTime.class);
     }
 
     @Test
-    @Ignore
     public void interfaces() throws Exception {
         Class<?>[] interfaces = new Class<?>[]{org.python.core.PyProxy.class,
                 org.python.core.ClassDictInit.class};
