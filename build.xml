@@ -1373,6 +1373,7 @@ The text for an official release would continue like ...
 
     <target name="javatest-basepath-built" depends="init">
         <mkdir dir="${junit.reports}"/>
+        <mkdir dir="${test.compile.dir}"/>
         <junit haltonfailure="true" fork="true" printsummary="withOutAndErr">
             <formatter type="xml"/>
             <sysproperty key="python.home" value="${dist.dir}"/>
@@ -1397,6 +1398,7 @@ The text for an official release would continue like ...
 
     <target name="javatest-import-built" depends="init">
         <mkdir dir="${junit.reports}"/>
+        <mkdir dir="${test.compile.dir}"/>
         <junit haltonfailure="true" fork="true" printsummary="true">
             <formatter type="xml"/>
             <sysproperty key="python.home" value="${dist.dir}"/>
