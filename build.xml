@@ -423,19 +423,25 @@ informix.jar = ../support/jdbc-4.10.12.jar
         <echo>build.git.version         = '${build.git.version}'</echo>
     </target>
 
-    <!-- Delete all intermediate build products. Directories correspond to those bases defined in
-         common-dirs and built upon by the various targets as they are executed.  -->
-    <target name="clean" depends="common-dirs, clean-test"
+    <target name="cleanWithoutDist" depends="common-dirs, clean-test"
         description="Delete contents of working directories">
         <delete includeemptydirs="true" failonerror="false">
             <!-- the package cache (now it is not in dist.dir). -->
             <fileset dir="${cache.dir}" includes="**/*" erroronmissingdir="false" />
             <!-- all files and subdirectories of ${build.dir}, without ${build.dir} itself. -->
             <fileset dir="${build.dir}" includes="**/*" defaultexcludes="false" />
-            <!-- all files and subdirectories of ${dist.dir}, without ${dist.dir} itself. -->
-            <fileset dir="${dist.dir}" includes="**/*" defaultexcludes="false" />
             <!-- all files and subdirectories of ${pubs.dir}, without ${pubs.dir} itself. -->
             <fileset dir="${pubs.dir}" includes="**/*" erroronmissingdir="false" />
+        </delete>
+    </target>
+
+    <!-- Delete all intermediate build products. Directories correspond to those bases defined in
+         common-dirs and built upon by the various targets as they are executed.  -->
+    <target name="clean" depends="cleanWithoutDist"
+        description="Delete contents of working directories">
+        <delete includeemptydirs="true" failonerror="false">
+            <!-- all files and subdirectories of ${dist.dir}, without ${dist.dir} itself. -->
+            <fileset dir="${dist.dir}" includes="**/*" defaultexcludes="false" />
         </delete>
     </target>
 
